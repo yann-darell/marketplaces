@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Notifications - Marketplace{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Mes Notifications</h2>
+
+{% if notifications %}
+    <div class="list-group">
+        {% for notification in notifications %}
+            <div class="list-group-item">
+                <div class="d-flex justify-content-between">
+                    <h5 class="mb-1">{{ notification.title }}</h5>
+                    <small class="text-muted">{{ notification.created_at|date:"d/m/Y H:i" }}</small>
+                </div>
+                <p class="mb-1">{{ notification.message }}</p>
+                <small>
+                    <span class="badge bg-secondary">{{ notification.get_notification_type_display }}</span>
+                    {% if not notification.is_read %}
+                        <span class="badge bg-info">Nouveau</span>
+                    {% endif %}
+                </small>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="alert alert-info">Aucune notification</div>
+{% endif %}
+{% endblock %}

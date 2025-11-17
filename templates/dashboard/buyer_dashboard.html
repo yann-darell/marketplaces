@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Tableau de Bord Acheteur - MarketElite{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Mon Tableau de Bord</h2>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fas fa-shopping-cart"></i> Mes Commandes
+                </h5>
+                <h3>{{ orders.count }}</h3>
+                <a href="{% url 'order_list' %}" class="btn btn-sm btn-primary mt-2">Voir les commandes</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fas fa-money-bill"></i> Total Dépensé
+                </h5>
+                <h3>{{ total_spent }} FCFA</h3>
+                <a href="{% url 'product_list' %}" class="btn btn-sm btn-success mt-2">Continuer shopping</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4>Notifications Récentes</h4>
+{% if notifications %}
+    <div class="list-group">
+        {% for notification in notifications %}
+            <a href="{% url 'notifications' %}" class="list-group-item list-group-item-action">
+                <h6 class="mb-1">{{ notification.title }}</h6>
+                <p class="mb-1">{{ notification.message }}</p>
+                <small class="text-muted">{{ notification.created_at|date:"d/m/Y H:i" }}</small>
+            </a>
+        {% endfor %}
+    </div>
+    <a href="{% url 'notifications' %}" class="btn btn-sm btn-secondary mt-2">Toutes les notifications</a>
+{% else %}
+    <div class="alert alert-info">Pas de notifications</div>
+{% endif %}
+{% endblock %}

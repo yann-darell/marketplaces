@@ -1,0 +1,25 @@
+<div class="card shadow-sm sticky-top" style="top: 80px;">
+  <div class="card-header bg-gradient text-white">
+    <h5 class="mb-0"><i class="fas fa-filter"></i> Filtrer</h5>
+  </div>
+  <div class="card-body">
+    <form method="get" class="mb-0">
+      <div class="mb-3">
+        <label class="form-label"><i class="fas fa-search"></i> Rechercher</label>
+        {{ form.search }}
+      </div>
+      <div class="mb-3">
+        <label class="form-label"><i class="fas fa-list"></i> Catégorie</label>
+        {{ form.category }}
+      </div>
+      <div class="mb-3">
+        <label class="form-label"><i class="fas fa-money-bill"></i> Gamme de prix</label>
+        <div class="row g-2">
+          <div class="col-6">{{ form.min_price }}<small class="text-muted">Min</small></div>
+          <div class="col-6">{{ form.max_price }}<small class="text-muted">Max</small></div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary w-100"><i class="fas fa-check"></i> Appliquer</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Panier - Marketplace{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-md-8">
+    <h3>Votre panier</h3>
+    <div class="card mt-3">
+      <div class="card-body">
+        {% if cart.items.count %}
+        <table class="table">
+          <thead><tr><th>Produit</th><th>Quantité</th><th>Prix</th><th></th></tr></thead>
+          <tbody>
+            {% for item in cart.items.all %}
+              <tr>
+                <td>{{ item.product.title }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.total_price }}€</td>
+                <td><a href="#" class="btn btn-sm btn-outline-secondary">Supprimer</a></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="d-flex justify-content-end">
+          <a href="{% url 'checkout' %}" class="btn btn-primary">Passer au paiement</a>
+        </div>
+        {% else %}
+          <div class="alert alert-info">Votre panier est vide.</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <aside class="col-md-4">
+    <div class="card p-3">
+      <h6>Résumé</h6>
+      <p class="h4 text-accent">{{ cart.total }}€</p>
+      <p class="text-secondary">Taxes et livraison calculées à l'étape de paiement.</p>
+    </div>
+  </aside>
+</div>
+{% endblock %}

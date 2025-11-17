@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Devenir Vendeur - Marketplace{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h4>Devenir Vendeur</h4>
+            </div>
+            <div class="card-body">
+                <p>Complétez vos informations de magasin pour commencer à vendre.</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="store_name" class="form-label">Nom du Magasin</label>
+                        <input type="text" class="form-control" id="store_name" name="store_name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="store_description" class="form-label">Description du Magasin</label>
+                        <textarea class="form-control" id="store_description" name="store_description" rows="4" placeholder="Décrivez votre magasin..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Devenir Vendeur</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

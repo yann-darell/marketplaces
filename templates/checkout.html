@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Paiement - Marketplace{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-md-8">
+    <div class="card p-4 mb-4">
+      <h4>Informations de livraison</h4>
+      <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label class="form-label">Adresse</label>
+          <input class="form-control" name="address" required>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Ville</label>
+            <input class="form-control" name="city" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Code postal</label>
+            <input class="form-control" name="postcode" required>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="card p-4">
+      <h4>Méthode de paiement</h4>
+      <p class="text-secondary">Intégration Stripe / PayPal à implémenter.</p>
+      <button class="btn btn-primary">Payer maintenant</button>
+    </div>
+  </div>
+  <aside class="col-md-4">
+    <div class="card p-3">
+      <h6>Résumé de la commande</h6>
+      <ul class="list-unstyled mt-3">
+        {% for item in cart.items.all %}
+          <li class="d-flex justify-content-between mb-2"><div>{{ item.product.title }} x{{ item.quantity }}</div><div>{{ item.total_price }}€</div></li>
+        {% endfor %}
+      </ul>
+      <hr>
+      <div class="d-flex justify-content-between"><strong>Total</strong><strong>{{ cart.total }}€</strong></div>
+    </div>
+  </aside>
+</div>
+{% endblock %}

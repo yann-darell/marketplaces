@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block title %}Connexion - Marketplace{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 60vh;">
+    <div class="col-lg-5 col-md-7 col-sm-9">
+        <!-- Hero Section -->
+        <div class="text-center mb-4">
+            <h1 class="text-gradient mb-2">
+                <i class="fas fa-sign-in-alt"></i> Connexion
+            </h1>
+            <p class="text-muted">Accédez à votre compte Marketplace</p>
+        </div>
+
+        <!-- Login Card -->
+        <div class="card shadow-lg">
+            <div class="card-body p-4">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    
+                    <!-- Username Field -->
+                    <div class="mb-3">
+                        <label for="username" class="form-label">
+                            <i class="fas fa-user"></i> Nom d'utilisateur
+                        </label>
+                        <input 
+                            type="text" 
+                            class="form-control form-control-lg" 
+                            id="username" 
+                            name="username" 
+                            placeholder="Entrez votre nom d'utilisateur"
+                            required
+                            autofocus
+                        >
+                        <small class="text-muted">
+                            <i class="fas fa-info-circle"></i> Ce ne doit pas être votre email
+                        </small>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="mb-4">
+                        <label for="password" class="form-label">
+                            <i class="fas fa-lock"></i> Mot de passe
+                        </label>
+                        <input 
+                            type="password" 
+                            class="form-control form-control-lg" 
+                            id="password" 
+                            name="password" 
+                            placeholder="Entrez votre mot de passe"
+                            required
+                        >
+                    </div>
+
+                    <!-- Remember Me -->
+                    <div class="form-check mb-3">
+                        <input 
+                            type="checkbox" 
+                            class="form-check-input" 
+                            id="remember" 
+                            name="remember"
+                        >
+                        <label class="form-check-label" for="remember">
+                            Se souvenir de moi
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button 
+                        type="submit" 
+                        class="btn btn-primary btn-lg w-100 mb-3"
+                    >
+                        <i class="fas fa-sign-in-alt"></i> Se Connecter
+                    </button>
+                </form>
+
+                <!-- Divider -->
+                <div class="text-center mb-3">
+                    <span class="text-muted">ou</span>
+                </div>
+
+                <!-- Links -->
+                <div class="text-center">
+                    <p class="mb-2">
+                        Vous n'avez pas de compte?
+                        <a href="{% url 'register' %}" class="text-gradient text-decoration-none fw-bold">
+                            S'inscrire maintenant
+                        </a>
+                    </p>
+                    <a href="{% url 'home' %}" class="text-muted text-decoration-none">
+                        <i class="fas fa-arrow-left"></i> Retour à l'accueil
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Box -->
+        <div class="alert alert-info mt-4 border-0">
+            <i class="fas fa-lightbulb"></i>
+            <strong>Conseil:</strong> Utilisez vos identifiants créés lors de l'inscription.
+        </div>
+    </div>
+</div>
+
+<style>
+    .text-gradient {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+</style>
+{% endblock %}

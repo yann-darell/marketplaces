@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}Tableau de Bord Vendeur - MarketElite{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Tableau de Bord Vendeur</h2>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <h6 class="card-title">Produits Actifs</h6>
+                <h3>{{ stats.active_products }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <h6 class="card-title">Total Produits</h6>
+                <h3>{{ stats.total_products }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-info">
+            <div class="card-body">
+                <h6 class="card-title">Commandes</h6>
+                <h3>{{ stats.total_orders }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning">
+            <div class="card-body">
+                <h6 class="card-title">Ventes Totales</h6>
+                <h3>{{ stats.total_sales }} FCFA</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h4>Mes Produits</h4>
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Prix</th>
+                        <th>Stock</th>
+                        <th>Actif</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products|slice:":5" %}
+                        <tr>
+                            <td>{{ product.title|truncatewords:5 }}</td>
+                            <td>{{ product.price }} FCFA</td>
+                            <td>{{ product.stock }}</td>
+                            <td>
+                                {% if product.is_active %}
+                                    <span class="badge bg-success">Oui</span>
+                                {% else %}
+                                    <span class="badge bg-danger">Non</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="4" class="text-center">Aucun produit</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <a href="{% url 'seller_products' %}" class="btn btn-sm btn-primary">Voir tous les produits</a>
+        <a href="{% url 'create_product' %}" class="btn btn-sm btn-success">Ajouter un produit</a>
+    </div>
+
+    <div class="col-md-6">
+        <h4>Dernières Commandes</h4>
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>N° Commande</th>
+                        <th>Client</th>
+                        <th>Total</th>
+                        <th>Statut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                        <tr>
+                            <td><small>{{ order.order_number }}</small></td>
+                            <td>{{ order.buyer.get_full_name|default:order.buyer.username }}</td>
+                            <td>{{ order.total_price }} FCFA</td>
+                            <td><span class="badge bg-info">{{ order.get_status_display }}</span></td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="4" class="text-center">Aucune commande</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

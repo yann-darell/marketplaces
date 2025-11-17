@@ -1,0 +1,421 @@
+/* ============================================================
+   Thème personnalisé - Palette de couleurs Marketplace
+   ============================================================ */
+
+:root {
+    /* Palette de couleurs personnalisée */
+    --color-primary-dark: #1C1A24;
+    --color-secondary-deep: #4A3F74;
+    --color-accent: #8C6FF0;
+    --color-surface: #2A2733;
+    --color-warm: #F5A97F;
+    --color-text-primary: #EDEDED;
+    --color-text-secondary: #B5B5C9;
+    
+    /* Couleurs de statut (inchangées pour la clarté) */
+    --success: #28a745;
+    --danger: #dc3545;
+    --warning: #ffc107;
+    --info: #17a2b8;
+}
+
+/* ============================================================
+   Light theme variables - applied when root has class 'light'
+   ============================================================ */
+
+:root.light {
+    --color-primary-dark: #F7F8FA; /* background */
+    --color-secondary-deep: #6B5B95; /* muted violet */
+    --color-accent: #6B4CFF; /* accent slightly darker for light */
+    --color-surface: #FFFFFF; /* cards */
+    --color-warm: #F5A97F; /* warm same */
+    --color-text-primary: #1C1A24; /* dark text */
+    --color-text-secondary: #4A4A60; /* muted text */
+
+    --success: #198754;
+    --danger: #c82333;
+    --warning: #e0a800;
+    --info: #0dcaf0;
+}
+
+/* ============================================================
+   Arrière-plans et textes
+   ============================================================ */
+
+html, body {
+    background-color: var(--color-primary-dark);
+    color: var(--color-text-primary);
+}
+
+main {
+    background-color: var(--color-primary-dark);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--color-text-primary);
+}
+
+p {
+    color: var(--color-text-secondary);
+}
+
+a {
+    color: var(--color-accent);
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--color-warm);
+}
+
+/* ============================================================
+   Gradient Primaire et Accent
+   ============================================================ */
+
+.bg-gradient {
+    background: linear-gradient(135deg, var(--color-secondary-deep) 0%, var(--color-accent) 100%) !important;
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-warm) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ============================================================
+   Composants Bootstrap personnalisés
+   ============================================================ */
+
+/* Cartes */
+.card {
+    background-color: var(--color-surface);
+    border: 1px solid rgba(139, 111, 240, 0.2);
+    color: var(--color-text-secondary);
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--color-secondary-deep) 0%, var(--color-accent) 100%);
+    color: var(--color-text-primary);
+    border-bottom: none;
+}
+
+.card-title {
+    color: var(--color-warm) !important;
+}
+
+/* Formulaires */
+.form-control,
+.form-select,
+.form-check-input {
+    background-color: var(--color-primary-dark);
+    color: var(--color-text-primary);
+    border: 2px solid var(--color-secondary-deep);
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: var(--color-primary-dark);
+    color: var(--color-text-primary);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 0.2rem rgba(139, 111, 240, 0.25);
+}
+
+.form-label {
+    color: var(--color-warm);
+    font-weight: 600;
+}
+
+/* Boutons */
+.btn-primary {
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-secondary-deep) 100%);
+    border: none;
+    color: var(--color-text-primary);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--color-accent) 20%, var(--color-secondary-deep) 80%);
+    color: var(--color-text-primary);
+}
+
+.btn-outline-primary {
+    color: var(--color-accent);
+    border: 2px solid var(--color-accent);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-primary-dark);
+}
+
+/* Alertes */
+.alert {
+    border-left: 4px solid;
+    color: var(--color-text-primary);
+}
+
+.alert-success {
+    background: rgba(40, 167, 69, 0.15);
+    border-left-color: var(--success);
+    color: #90EE90;
+}
+
+.alert-danger {
+    background: rgba(220, 53, 69, 0.15);
+    border-left-color: var(--danger);
+    color: #FF7F7F;
+}
+
+.alert-warning {
+    background: rgba(255, 193, 7, 0.15);
+    border-left-color: var(--warning);
+    color: #FFD700;
+}
+
+.alert-info {
+    background: rgba(23, 162, 184, 0.15);
+    border-left-color: var(--info);
+    color: #87CEEB;
+}
+
+/* Badges */
+.badge {
+    background-color: var(--color-accent);
+    color: var(--color-primary-dark);
+}
+
+.badge-success {
+    background-color: var(--success);
+}
+
+.badge-danger {
+    background-color: var(--danger);
+}
+
+.badge-warning {
+    background-color: var(--warning);
+    color: #000;
+}
+
+.badge-info {
+    background-color: var(--info);
+}
+
+/* Tables */
+.table {
+    color: var(--color-text-secondary);
+}
+
+.table thead {
+    background: linear-gradient(135deg, var(--color-secondary-deep) 0%, var(--color-accent) 100%);
+    color: var(--color-text-primary);
+}
+
+.table tbody tr {
+    border-bottom: 1px solid var(--color-surface);
+}
+
+.table tbody tr:hover {
+    background-color: rgba(139, 111, 240, 0.1);
+}
+
+/* Pagination */
+.pagination .page-link {
+    background-color: var(--color-surface);
+    color: var(--color-accent);
+    border: 2px solid var(--color-accent);
+}
+
+.pagination .page-link:hover {
+    background-color: var(--color-accent);
+    color: var(--color-primary-dark);
+    border-color: var(--color-accent);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-primary-dark);
+}
+
+/* ============================================================
+   Barre de navigation (Navbar)
+   ============================================================ */
+
+.navbar {
+    background: linear-gradient(135deg, var(--color-secondary-deep) 0%, var(--color-accent) 100%);
+    border-bottom: 1px solid rgba(139, 111, 240, 0.3);
+}
+
+.navbar-brand {
+    color: var(--color-warm) !important;
+    font-weight: 700;
+}
+
+.nav-link {
+    color: var(--color-text-secondary) !important;
+}
+
+.nav-link:hover {
+    color: var(--color-warm) !important;
+}
+
+.dropdown-menu {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-secondary-deep);
+}
+
+.dropdown-item {
+    color: var(--color-text-secondary);
+}
+
+.dropdown-item:hover {
+    background-color: var(--color-secondary-deep);
+    color: var(--color-warm);
+}
+
+/* ============================================================
+   Pied de page (Footer)
+   ============================================================ */
+
+footer {
+    background-color: var(--color-primary-dark);
+    color: var(--color-text-secondary);
+    border-top: 1px solid var(--color-secondary-deep);
+}
+
+footer a {
+    color: var(--color-warm);
+}
+
+footer a:hover {
+    color: var(--color-accent);
+}
+
+footer h5 {
+    color: var(--color-text-primary);
+}
+
+/* ============================================================
+   Sections spéciales
+   ============================================================ */
+
+/* Section Hero */
+.hero {
+    background: linear-gradient(135deg, var(--color-secondary-deep) 0%, var(--color-accent) 100%);
+    color: var(--color-text-primary);
+}
+
+.hero h1 {
+    color: var(--color-warm);
+}
+
+.hero p {
+    color: var(--color-text-secondary);
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    background-color: transparent;
+}
+
+.breadcrumb-item {
+    color: var(--color-accent);
+}
+
+.breadcrumb-item.active {
+    color: var(--color-warm);
+}
+
+/* ============================================================
+   Utilitaires personnalisés
+   ============================================================ */
+
+.text-warm {
+    color: var(--color-warm) !important;
+}
+
+.text-accent {
+    color: var(--color-accent) !important;
+}
+
+.text-secondary-deep {
+    color: var(--color-secondary-deep) !important;
+}
+
+.bg-primary-dark {
+    background-color: var(--color-primary-dark) !important;
+}
+
+.bg-surface {
+    background-color: var(--color-surface) !important;
+}
+
+.shadow-accent {
+    box-shadow: 0 10px 30px rgba(139, 111, 240, 0.2) !important;
+}
+
+/* ============================================================
+   Animations et transitions
+   ============================================================ */
+
+.transition-all {
+    transition: all 0.3s ease;
+}
+
+.card {
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(139, 111, 240, 0.3);
+}
+
+.btn {
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+/* ============================================================
+   Scrollbar personnalisée (Webkit)
+   ============================================================ */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-surface);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-accent);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-warm);
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.25rem;
+    }
+
+    .hero h1 {
+        font-size: 1.75rem;
+    }
+
+    .card {
+        margin-bottom: 1rem;
+    }
+}

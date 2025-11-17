@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.title }} - MarketElite{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Accueil</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'product_list' %}">Produits</a></li>
+        {% if product.category %}
+            <li class="breadcrumb-item"><a href="#">{{ product.category.name }}</a></li>
+        {% endif %}
+        <li class="breadcrumb-item active">{{ product.title|truncatewords:5 }}</li>
+    </ol>
+</nav>
+
+<!-- Product Details Section -->
+<div class="row mb-4">
+    <!-- Left: Image -->
+    <div class="col-md-6">
+        <div class="card">
+            <img src="{{ product.image.url|default:'/static/images/product-placeholder.png' }}" class="img-fluid" alt="{{ product.title }}">
+        </div>
+    </div>
+
+    <!-- Right: Details -->
+    <div class="col-lg-6">
+        <!-- Title & Seller -->
+        <div class="mb-3">
+            <h1 class="mb-2">{{ product.title }}</h1>
+            <p class="text-muted">
+                <i class="fas fa-user"></i>
+                Vendeur: <a href="#" class="text-gradient text-decoration-none fw-bold">
+                    {{ product.seller.get_full_name|default:product.seller.username }}
+                </a>
+            </p>
+        </div>
+
+        <!-- Rating -->
+        {% if average_rating %}
+            <div class="mb-3">
+                <span class="h5">
+                    {% for i in "x"|rjust:"5" %}
+                        {% if forloop.counter <= average_rating %}
+                            <i class="fas fa-star text-warning"></i>
+                        {% else %}
+                            <i class="far fa-star text-warning"></i>
+                        {% endif %}
+                    {% endfor %}
+                    <span class="text-gradient ms-2">{{ average_rating|floatformat:1 }}/5</span>
+                    <span class="text-muted">({{ reviews.count }} avis)</span>
+                </span>
+            </div>
+        {% endif %}
+
+        <!-- Price & Stock Badge -->
+        <div class="mb-3">
+            <div class="alert alert-light border-0" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);">
+                <h2 class="text-gradient mb-2">{{ product.price }} FCFA</h2>
+                {% if product.stock > 0 %}
+                    <span class="badge bg-success text-white px-3 py-2">
+                        <i class="fas fa-check-circle"></i> {{ product.stock }} en stock
+                    </span>
+                {% else %}
+                    <span class="badge bg-danger text-white px-3 py-2">
+                        <i class="fas fa-times-circle"></i> Rupture de stock
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Category & Info -->
+        {% if product.category %}
+            <p class="mb-2">
+                <strong><i class="fas fa-tag"></i> Catégorie:</strong>
+                <span class="badge bg-secondary">{{ product.category.name }}</span>
+            </p>
+        {% endif %}
+
+        <!-- Description -->
+        <div class="alert alert-info border-0 mb-4">
+            <h5><i class="fas fa-info-circle"></i> Description</h5>
+            <p class="mb-0">{{ product.description }}</p>
+        </div>
+
+        <!-- Action Buttons -->
+        {% if user.is_authenticated %}
+            {% if product.stock > 0 %}
+                <form method="post" action="{% url 'add_to_cart' product.pk %}" class="mb-3">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">
+                            <i class="fas fa-boxes"></i> Quantité:
+                        </label>
+                        <div class="input-group">
+                            <input type="number" id="quantity" name="quantity" class="form-control" value="1" min="1" max="{{ product.stock }}">
+                            <span class="input-group-text">max: {{ product.stock }}</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg w-100 mb-2">
+                        <i class="fas fa-shopping-cart"></i> Ajouter au panier
+                    </button>
+                </form>
+                <a href="{% url 'add_review' product.pk %}" class="btn btn-outline-primary w-100">
+                    <i class="fas fa-star"></i> Ajouter un avis
+                </a>
+            {% else %}
+                <div class="alert alert-danger" role="alert">
+                    <i class="fas fa-exclamation-triangle"></i> Produit en rupture de stock
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                <i class="fas fa-lock"></i>
+                <a href="{% url 'login' %}" class="alert-link">Connectez-vous</a> pour acheter ce produit
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Reviews Section -->
+{% if reviews %}
+    <hr class="my-5">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-gradient mb-4">
+                <i class="fas fa-comments"></i> Avis des clients
+            </h2>
+        </div>
+    </div>
+    <div class="row">
+        {% for review in reviews %}
+            <div class="col-md-6 mb-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h6 class="card-title mb-0">
+                                <i class="fas fa-user-circle"></i> {{ review.buyer.get_full_name|default:review.buyer.username }}
+                            </h6>
+                            <span class="text-muted small">{{ review.created_at|date:"d/m/Y" }}</span>
+                        </div>
+                        
+                        <!-- Rating Stars -->
+                        <div class="mb-2">
+                            {% for i in "x"|rjust:5 %}
+                                {% if forloop.counter <= review.rating %}
+                                    <i class="fas fa-star text-warning"></i>
+                                {% else %}
+                                    <i class="far fa-star text-muted"></i>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        
+                        <p class="card-text">{{ review.comment }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<style>
+    .text-gradient {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .cursor-pointer {
+        cursor: pointer;
+    }
+
+    .cursor-pointer:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .img-fluid {
+        max-width: 100%;
+    }
+</style>
+{% endblock %}
