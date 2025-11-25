@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 
 
 
@@ -54,16 +58,6 @@ INSTALLED_APPS = [
     "cloudinary",
     "cloudinary_storage",
 ]
-
-# -- Cloudinary storage config --
-CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": os.environ.get("CLOUDINARY_CLOUD_NAME"),
-    "API_KEY": os.environ.get("CLOUDINARY_API_KEY"),
-    "API_SECRET": os.environ.get("CLOUDINARY_API_SECRET"),
-}
-# Définit Cloudinary comme stockage par défaut pour les fichiers média (uploads)
-DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -144,8 +138,19 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [ BASE_DIR / "static" ]
 
 # Media files
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+# -- Cloudinary storage config --
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": os.environ.get("dzjbhjonk"),
+    "API_KEY": os.environ.get("254211514234123"),
+    "API_SECRET": os.environ.get("JpoAcqDxqEUmnOwRkQQKSFSxWOc"),
+}
+# Définit Cloudinary comme stockage par défaut pour les fichiers média (uploads)
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
 
 
 # Default primary key field type
