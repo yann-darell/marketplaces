@@ -12,9 +12,6 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
 
 
 
@@ -144,11 +141,11 @@ STATICFILES_DIRS = [ BASE_DIR / "static" ]
 
 # -- Cloudinary storage config --
 CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": os.environ.get("dzjbhjonk"),
-    "API_KEY": os.environ.get("254211514234123"),
-    "API_SECRET": os.environ.get("JpoAcqDxqEUmnOwRkQQKSFSxWOc"),
+    "CLOUD_NAME": os.environ.get("CLOUDINARY_CLOUD_NAME"),
+    "API_KEY": os.environ.get("CLOUDINARY_API_KEY"),
+    "API_SECRET": os.environ.get("CLOUDINARY_API_SECRET"),
 }
-# Définit Cloudinary comme stockage par défaut pour les fichiers média (uploads)
+
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 
